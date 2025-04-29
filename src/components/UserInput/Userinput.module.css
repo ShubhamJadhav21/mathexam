@@ -2,7 +2,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 2rem;
+    padding: 1rem;
     background-color: #f9f9f9;
     min-height: 89vh;
   }
@@ -51,7 +51,11 @@
     margin: 0;
   }
   /* Responsive adjustments */
-  @media (max-width: 600px) {
+  @media (max-width: 700px) {
+    .wrapper_input{
+      margin-top: -10%;
+     
+    }
     .user_input {
       padding: 1.5rem;
     }

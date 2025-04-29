@@ -6,7 +6,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
-    justify-content: center;
+    justify-content: space-around;
   }
   
   .questionBox {
@@ -92,14 +92,25 @@
     font-size: 1rem;
   }
   
-  /* Responsive Design */
-  @media (max-width: 600px) {
+  
+  @media (max-width: 700px) {
     .questionBox {
       width: 4.5rem;
       font-size: 0.85rem;
       padding: 0.4rem;
     }
-  
+    .header{
+      margin-top: -1rem;
+    }
+  h2{
+    text-align: center;
+    margin-top: -.2rem;
+    font-size:1rem;
+    color:#56b6ec;
+  }
+  .questionBox{
+    width: 40%;
+  }
     .submitBtn {
       width: 100%;
     }

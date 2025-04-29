@@ -4,15 +4,14 @@ import Timer from '../Timer/Timer'; // Timer component
 import style from './SpeedBoost.module.css'; 
 
 export default function SpeedBoost() {
-  
   const { min, max, count, timer } = useSelector(s => s.input);
-  
-  
+
   const [questions, setQuestions] = useState([]);
   const [answers, setAnswers] = useState({});
   const [submitted, setSubmitted] = useState(false);
+  const [startTime, setStartTime] = useState(null);  
+  const [elapsedTime, setElapsedTime] = useState(0); 
 
-  
   useEffect(() => {
     const a = +min, b = +max, c = +count;
     if (a && b && c) {
@@ -22,18 +21,22 @@ export default function SpeedBoost() {
         return { n1, n2, correct: n1 * n2 };
       });
       setQuestions(qs);
+      setStartTime(Date.now());  
     }
   }, [min, max, count]);
 
-  
-  const doSubmit = () => setSubmitted(true);
-
-  
-  const handleTimeUp = () => {
+  const doSubmit = () => {
     setSubmitted(true);
+    const endTime = Date.now();
+    setElapsedTime(Math.round((endTime - startTime) / 1000));  
   };
 
-  
+  const handleTimeUp = () => {
+    setSubmitted(true);
+    const endTime = Date.now();
+    setElapsedTime(Math.round((endTime - startTime) / 1000));  
+  };
+
   const { correctCount, pct } = (() => {
     const correctCount = questions.reduce((acc, q, i) =>
       acc + (parseInt(answers[i]) === q.correct ? 1 : 0), 0);
@@ -41,12 +44,18 @@ export default function SpeedBoost() {
     return { correctCount, pct };
   })();
 
+  
+  const formatTime = (seconds) => {
+    const minutes = Math.floor(seconds / 60); 
+    const remainingSeconds = seconds % 60;   
+    return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`; 
+  };
+
   return (
     <div className={style.wrapper}>
       <div className={style.header}>
-      {!submitted && <Timer minutes={+timer} onTimeUp={handleTimeUp} />}
+        {!submitted && <Timer minutes={+timer} onTimeUp={handleTimeUp} />}
         <h2>Multiplication Exam</h2>
-      
       </div>
 
       <div className={style.questionsContainer}>
@@ -91,6 +100,8 @@ export default function SpeedBoost() {
         <div className={style.resultSummary}>
           <p>{correctCount} / {questions.length} correct</p>
           <p>Score: {pct}%</p>
+          <p>Time Used: {formatTime(elapsedTime)}</p> 
+          <p>Total Time: {formatTime(timer * 60)}</p> 
         </div>
       )}
     </div>
