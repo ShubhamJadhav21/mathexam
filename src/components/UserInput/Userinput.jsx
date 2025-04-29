@@ -32,9 +32,9 @@ export default function Userinput() {
   return (
     <div className={style.wrapper_input}>
       <form className={style.user_input}>
-        <input type="text" placeholder="Enter Min" onChange={getMin} />
-        <input type="text" placeholder="Enter Max" onChange={getMax} />
-        <input type="text" placeholder="Enter Count" onChange={getCount} />
+        <input type="number" placeholder="Enter Min" onChange={getMin} />
+        <input type="number" placeholder="Enter Max" onChange={getMax} />
+        <input type="number" placeholder="Enter Count" onChange={getCount} />
         <input
           type="number"
           placeholder="Enter Timer (in minutes)"
